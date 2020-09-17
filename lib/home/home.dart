@@ -131,6 +131,7 @@ _buildSnackbar(context) {
       content: Text(
         "Invalid email please try again!",
         textAlign: TextAlign.center,
+        style: kLabelStyle,
       ),
       backgroundColor: Colors.red[900],
       
