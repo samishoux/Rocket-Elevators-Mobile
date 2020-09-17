@@ -19,8 +19,11 @@ class NewState extends State<ListElevator>  {
   var res = ListMyWidgets();
   var _statusSelected = "Active";
   var _currentItemSelected = "Select";
-  var textDisplay = "Please Select an elevator";
+  var textDisplay1 = "Please Select an elevator";
+  var textDisplayred = "";
+  var textDisplaygreen = "";
 
+  bool _isVisible = false;
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: kappBar,
@@ -56,6 +59,7 @@ class NewState extends State<ListElevator>  {
                           }).toList(),
                           onChanged: (String newValueSelected) {
                             setState(() {
+                              this._isVisible = true;
                               this._currentItemSelected = newValueSelected;
                             });
                             try {
@@ -64,12 +68,23 @@ class NewState extends State<ListElevator>  {
                                 if(last[i]['id'] == e) {
                                   var status = last[i]["status"];
                                   //show element with the last inside the thing please :D
-                                  textDisplay = "Elevator number: $e \n\n Status: $status";
+                                  textDisplay1 = "Elevator number: $e \n\n Status: ";
+                                  textDisplaygreen = "";
+                                  textDisplayred = "";
+                                  if(status != "Active") {
+                                    textDisplayred = "$status";
+                                  }else {
+                                    textDisplaygreen = "$status";
+                                  }
                                   this._statusSelected = last[i]['status'];
                                 }
                               }
                             }catch (_) {
-                              textDisplay = "Please Select an elevator";
+                              setState(() {
+                                this._isVisible = false;
+                                
+                              });
+                              textDisplay1 = "Please Select an elevator";
                             }
                           },
                           value: _currentItemSelected,
@@ -80,91 +95,129 @@ class NewState extends State<ListElevator>  {
                         margin: EdgeInsets.only(top:100),
                         padding: EdgeInsets.only(left: 20.0, right: 20.0),
                         decoration: kBoxDecorationStyle,
-                        child: Text(
-                          "$textDisplay",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontFamily: 'OpenSans',
-                            fontSize: 20,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                      Row(
-                        key: _myKey,
-                        children: [
-                          // status selector
-                          Column(
-                            children: [
-                              Container(
-                                margin: EdgeInsets.only(top:100),
-                                padding: EdgeInsets.only(left: 20.0, right: 20.0),
-                                decoration: kBoxDecorationStyle,
-                                child: DropdownButton<String>(
-                                  style: kLabelStyle,
-                                  dropdownColor: Colors.blue,
-                                  items: <String>['Active', 'Inactive', 'Intervention']
-                                      .map<DropdownMenuItem<String>>((String value) {
-                                    return DropdownMenuItem<String>(
-                                      value: value,
-                                      child: Text(value),
-                                    );
-                                  }).toList(),
-                                  value: _statusSelected,
-                                  onChanged: (String newValueSelected) {
-                                    setState(() {
-                                      this._statusSelected = newValueSelected;
-                                    });
-                                  },
-                                ),
-                              ),
-                            ],
-                          ),
-                          //submit button
-                          Column(
-                            children: [
-                              Container(
-                                margin: EdgeInsets.only(top:100),
-                                padding: EdgeInsets.only(left: 20.0, right: 20.0),
-                                child: RaisedButton(
-                                  elevation: 5.0,
-                                  onPressed: () async {
-                                    var status = this._statusSelected;
-                                    var e = this._currentItemSelected.split(" ")[2];
-                                    await _callSomething(e, status);
-                                    if(this._statusSelected != "Active") {
-                                      setState(() { 
-                                        textDisplay = "Elevator number: $e \n\n Status: $status";
-                                      });
-                                    }else {
-                                      setState(() { 
-                                        this._currentItemSelected = "Select";
-                                        textDisplay = "Please Select an elevator";
-                                      });
-                                    }
-                                    _buildSnackbar(context);
-                                  },
-                                  padding: EdgeInsets.all(15.0),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(30.0),
+                        child: RichText(
+                            textAlign: TextAlign.center,
+                            text: TextSpan(
+                              style: DefaultTextStyle.of(context).style,
+                              children: <TextSpan>[
+                                TextSpan(
+                                  text: "$textDisplay1", 
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: 'OpenSans',
+                                    fontSize: 20,
                                   ),
-                                  color: Colors.white,
-                                  child: Text(
-                                    'Submit',
-                                    style: TextStyle(
-                                      color: Color(0xFF527DAA),
-                                      letterSpacing: 1.5,
-                                      fontSize: 18.0,
-                                      fontWeight: FontWeight.bold,
-                                      fontFamily: 'OpenSans',
+                                ),
+                                TextSpan(
+                                  text: "$textDisplayred",
+                                  style: TextStyle(
+                                    color: Colors.red,
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: 'OpenSans',
+                                    fontSize: 20,
+                                  ),
+                                ),
+                                TextSpan(
+                                  text: "$textDisplaygreen",
+                                  style: TextStyle(
+                                    color: Colors.green,
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: 'OpenSans',
+                                    fontSize: 20,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          )
+                      ),
+                      Visibility(
+                        visible: _isVisible,
+                        child: Row(
+                          key: _myKey,
+                          children: [
+                            // status selector
+                            Column(
+                              children: [
+                                Container(
+                                  margin: EdgeInsets.only(top:100),
+                                  padding: EdgeInsets.only(left: 20.0, right: 20.0),
+                                  decoration: kBoxDecorationStyle,
+                                  child: DropdownButton<String>(
+                                    style: kLabelStyle,
+                                    dropdownColor: Colors.blue,
+                                    items: <String>['Active', 'Inactive', 'Intervention']
+                                        .map<DropdownMenuItem<String>>((String value) {
+                                      return DropdownMenuItem<String>(
+                                        value: value,
+                                        child: Text(value),
+                                      );
+                                    }).toList(),
+                                    value: _statusSelected,
+                                    onChanged: (String newValueSelected) {
+                                      setState(() {
+                                        this._statusSelected = newValueSelected;
+                                      });
+                                    },
+                                  ),
+                                ),
+                              ],
+                            ),
+                            //submit button
+                            Column(
+                              children: [
+                                Container(
+                                  margin: EdgeInsets.only(top:100),
+                                  padding: EdgeInsets.only(left: 20.0, right: 20.0),
+                                  child: RaisedButton(
+                                    elevation: 5.0,
+                                    onPressed: () async {
+                                      var status = this._statusSelected;
+                                      var e = this._currentItemSelected.split(" ")[2];
+                                      await _callSomething(e, status);
+                                      if(this._statusSelected != "Active") {
+                                        setState(() { 
+                                          textDisplay1 = "Elevator number: $e \n\n Status: ";
+                                          textDisplaygreen = "";
+                                          textDisplayred = "";
+                                          if(status != "Active") {
+                                            textDisplayred = "$status";
+                                          }else {
+                                            textDisplaygreen = "$status";
+                                          }
+                                        });
+                                      }else {
+                                        setState(() { 
+                                          textDisplaygreen = "";
+                                          textDisplayred = "";
+                                          this._isVisible = false;
+                                          this._currentItemSelected = "Select";
+                                          textDisplay1 = "Please Select an elevator";
+                                        });
+                                      }
+                                      _buildSnackbar(context);
+                                    },
+                                    padding: EdgeInsets.all(15.0),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(30.0),
+                                    ),
+                                    color: Colors.white,
+                                    child: Text(
+                                      'Submit',
+                                      style: TextStyle(
+                                        color: Color(0xFF527DAA),
+                                        letterSpacing: 1.5,
+                                        fontSize: 18.0,
+                                        fontWeight: FontWeight.bold,
+                                        fontFamily: 'OpenSans',
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ),
-                            ],
-                          ),
-                        ],
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
                     ]
                   ),
@@ -177,8 +230,6 @@ class NewState extends State<ListElevator>  {
     );
   }
 }
-
-
 
 _buildSnackbar(context) {
     SnackBar mySackbar = SnackBar(
