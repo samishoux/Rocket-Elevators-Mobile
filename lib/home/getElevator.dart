@@ -26,25 +26,20 @@ class StateGetElevator extends State<GetElevator>  {
           children: <Widget>[
             kBGColor,
             Container(
-              height: double.infinity,
+              alignment: Alignment.center,
               child: SingleChildScrollView(
                 physics: AlwaysScrollableScrollPhysics(), 
                 padding: EdgeInsets.symmetric(
                   horizontal: 40.0, 
                   vertical: 120.0,
                 ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                child: Row(
+                  // mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    SizedBox(
-                      height: 30.0,
-                    ),
-                    SizedBox(
-                          height: 30.0,
-                        ),
-                    _buildIdField(),
-                    _buildSubmitBtn(context),
-                    _displayInformation(),
+                     _buildIdField(),
+                    // _buildSubmitBtn(context),
+                    
+                    // _displayInformation(),
                   ],
                 ),
               ),
@@ -57,43 +52,39 @@ class StateGetElevator extends State<GetElevator>  {
 
   
 
-  _buildSubmitBtn(context) {
-    return Container(
-      padding: EdgeInsets.symmetric(vertical: 50.0),
-      width: double.infinity,
-      child: RaisedButton(
-        elevation: 5.0,
-        onPressed: () async { 
-          final res = await _callHttpRequest(myController.text);
+  _buildSubmitBtn() {
+    return RaisedButton(
+      
+      elevation: 5.0,
+      onPressed: () async { 
+        final res = await _callHttpRequest(myController.text);
 
-          setState(() {
-            this._isVisible = true;
-            this.display1 = "Elevator number: ${res['id']} \n Status: ";
-            this.displaygreen = "";
-            this.displayred = "";
-            if(res['status'] != "Active") {
-              this.displayred = "${res['status']}";
-            }else {
-              this.displaygreen = "${res['status']}";
-            }
-          });
-          print(res);
-          
-        },
-        padding: EdgeInsets.all(15.0),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(30.0),
-        ),
-        color: Colors.white,
-        child: Text(
-          'Submit',
-          style: TextStyle(
-            color: Color(0xFF527DAA),
-            letterSpacing: 1.5,
-            fontSize: 18.0,
-            fontWeight: FontWeight.bold,
-            fontFamily: 'OpenSans',
-          ),
+        setState(() {
+          this._isVisible = true;
+          this.display1 = "Elevator number: ${res['id']} \n Status: ";
+          this.displaygreen = "";
+          this.displayred = "";
+          if(res['status'] != "Active") {
+            this.displayred = "${res['status']}";
+          }else {
+            this.displaygreen = "${res['status']}";
+          }
+        });
+        print(res);
+      },
+      padding: EdgeInsets.all(15.0),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(30.0),
+      ),
+      color: Colors.white,
+      child: Text(
+        'Submit',
+        style: TextStyle(
+          color: Color(0xFF527DAA),
+          letterSpacing: 1.5,
+          fontSize: 18.0,
+          fontWeight: FontWeight.bold,
+          fontFamily: 'OpenSans',
         ),
       ),
     );
@@ -111,6 +102,7 @@ class StateGetElevator extends State<GetElevator>  {
           height: 10.0,
         ),
         Container(
+          width: 210,
           alignment: Alignment.centerLeft,
           decoration: kBoxDecorationStyle,
           height: 60.0,
@@ -128,6 +120,7 @@ class StateGetElevator extends State<GetElevator>  {
             ),
           ),
         ),
+        _buildSubmitBtn(),
       ],
     );
   }

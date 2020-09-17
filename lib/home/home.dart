@@ -140,18 +140,23 @@ _buildSnackbar(context) {
 }
 
 _callHttpRequest(email, context) async {
-  final response = await http.get('https://imastuden.herokuapp.com/graphql?query=query%20%7B%0A%20%20checkExsitingEmployee(email%3A%20%22' + email + '%22)%20%7Bid%20email%7D%0A%7D');
-  final res = json.decode(response.body);
-  myController.text = "";
-  if(res['data']['checkExsitingEmployee'] == null) {
-    //tell the user he has the wrong email :D
+  try{
+    final response = await http.get('https://imastuden.herokuapp.com/graphql?query=query%20%7B%0A%20%20checkExsitingEmployee(email%3A%20%22' + email + '%22)%20%7Bid%20email%7D%0A%7D');
+    final res = json.decode(response.body);
+    myController.text = "";
+    if(res['data']['checkExsitingEmployee'] == null) {
+      //tell the user he has the wrong email :D
+      _buildSnackbar(context);
+    }else {
+      //tell the user he is good to go and change the view
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => List()
+        )
+      );
+    }
+  }
+  catch (_) {
     _buildSnackbar(context);
-  }else {
-    //tell the user he is good to go and change the view
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) => List()
-      )
-    );
   }
 }
