@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:Rocket_Elevator_Mobile/app.dart';
 
-//avoid repetition
+//some text styling used in some places
 final kHintTextStyle = TextStyle(
   color: Colors.white54,
   fontFamily: 'OpenSans',
 );
 
+//some text styling used in some places
 final kLabelStyle = TextStyle(
   color: Colors.white,
   fontWeight: FontWeight.bold,
   fontFamily: 'OpenSans',
 );
 
+//global app bar used everywere
 final kappBar = AppBar(
   title: Text("Rocket Elevator Mobile App"),
   actions: <Widget> [
@@ -33,7 +35,7 @@ final kappBar = AppBar(
 );
 
 
-
+//box decoration unsed in some places
 final kBoxDecorationStyle = BoxDecoration(
   color: Color(0xFF6CA8F1),
   borderRadius: BorderRadius.circular(10.0),
@@ -46,6 +48,7 @@ final kBoxDecorationStyle = BoxDecoration(
   ],
 );
 
+//background color used everywhere
 final kBGColor = Container(
   height: double.infinity, 
   width: double.infinity, 

@@ -22,6 +22,7 @@ class List extends StatelessWidget {
             Container(
               child: Column(
                 children: [
+                  //display list elevator button
                   Flexible(
                     flex: 1,
                     child: Center(
@@ -53,6 +54,7 @@ class List extends StatelessWidget {
                       ),
                     )
                   ),
+                  //display get status elevator button
                   Flexible(
                     flex: 1,
                     child: Center(

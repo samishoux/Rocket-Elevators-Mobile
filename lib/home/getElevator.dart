@@ -11,6 +11,7 @@ class GetElevator extends StatefulWidget {
 }
 
 class StateGetElevator extends State<GetElevator>  {
+  //init variable to display correctly
   final anotherController = TextEditingController();
   var _statusSelected = "Active";
   var display1 = "";
@@ -48,6 +49,7 @@ class StateGetElevator extends State<GetElevator>  {
                     SizedBox(
                           height: 30.0,
                         ),
+                      //input box for the id
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
@@ -82,6 +84,7 @@ class StateGetElevator extends State<GetElevator>  {
                         ),
                       ],
                     ),
+                    //submit button
                     Container(
                       padding: EdgeInsets.symmetric(vertical: 10.0),
                       width: double.infinity,
@@ -150,6 +153,7 @@ class StateGetElevator extends State<GetElevator>  {
                         ),
                       ),
                     ),
+                    //display info text
                     Visibility(
                       visible: _isVisible,
                       child: Container(
@@ -193,6 +197,7 @@ class StateGetElevator extends State<GetElevator>  {
                         )
                       ),
                     ),
+                    //display selector of status
                     Visibility(
                       visible: _isVisible2,
                       child: Row(
@@ -271,10 +276,12 @@ class StateGetElevator extends State<GetElevator>  {
   }
 }
 
+//change the status
 _modifyHttpRequest(id,status) async {
   await http.post("https://imastuden.herokuapp.com/graphql?query=mutation%7B%0A%20%20updateElevator(input%3A%20%7B%0A%20%20%20%20id%3A%20"+id.toString()+"%0A%20%20%20%20status%3A%20%22"+status+"%22%0A%20%20%7D)%7B%0A%20%20%20%20id%0A%20%20%20%20status%0A%20%20%7D%0A%7D");
 }
 
+//display a success
 _buildSnackbar(context) {
   SnackBar mySackbar = SnackBar(
     content: Text(
@@ -288,6 +295,7 @@ _buildSnackbar(context) {
   Scaffold.of(context).showSnackBar(mySackbar);
 }
 
+//get info for elevator
 _callHttpRequest(id) async {
   final response = await http.get("https://imastuden.herokuapp.com/graphql?query=%7B%0A%20%20elevators(id%3A%20$id)%20%7B%0A%20%20%20%20id%0A%20%20%20%20status%0A%20%20%7D%0A%7D%0A");
   final res = json.decode(response.body);

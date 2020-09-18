@@ -49,7 +49,7 @@ class Home extends StatelessWidget {
   }
   
   
-
+  //build the login button
   _buildLoginBtn(context) {
     return Container(
       padding: EdgeInsets.symmetric(vertical: 50.0),
@@ -83,7 +83,7 @@ class Home extends StatelessWidget {
   
 
   @override
-  
+  //display everything
   Widget build(BuildContext context) {
     globalContext = context;
     return Scaffold(
@@ -131,6 +131,7 @@ class Home extends StatelessWidget {
   }
 }
 
+//show error when wrong email
 _buildSnackbar(context) {
     SnackBar mySackbar = SnackBar(
       content: Text(
@@ -144,6 +145,7 @@ _buildSnackbar(context) {
     Scaffold.of(context).showSnackBar(mySackbar);
 }
 
+//check for email entered
 _callHttpRequest(email, context) async {
   try{
     final response = await http.get('https://imastuden.herokuapp.com/graphql?query=query%20%7B%0A%20%20checkExsitingEmployee(email%3A%20%22' + email + '%22)%20%7Bid%20email%7D%0A%7D');
