@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:Rocket_Elevator_Mobile/app.dart';
 
 //avoid repetition
 final kHintTextStyle = TextStyle(
@@ -14,7 +15,24 @@ final kLabelStyle = TextStyle(
 
 final kappBar = AppBar(
   title: Text("Rocket Elevator Mobile App"),
+  actions: <Widget> [
+    IconButton(
+      icon: const Icon(Icons.logout),
+      tooltip: 'Logout',
+      onPressed: () {
+        try{
+          Navigator.popUntil(globalContext, ModalRoute.withName('/'));
+        }
+        catch(_) {}
+      },
+    ),
+    Image.asset(
+      "images/R2.png"
+    ),
+  ]
 );
+
+
 
 final kBoxDecorationStyle = BoxDecoration(
   color: Color(0xFF6CA8F1),

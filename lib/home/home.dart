@@ -9,6 +9,7 @@ import 'list.dart';
 final myController = TextEditingController();
 
 class Home extends StatelessWidget {
+  
   //email input field
   _buildEmailField() {
     return Column(
@@ -55,7 +56,9 @@ class Home extends StatelessWidget {
       width: double.infinity,
       child: RaisedButton(
         elevation: 5.0,
-        onPressed: () => _callHttpRequest(myController.text, context),
+        onPressed: () async { 
+          await _callHttpRequest(myController.text, context);
+        },
         padding: EdgeInsets.all(15.0),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30.0),
@@ -80,7 +83,9 @@ class Home extends StatelessWidget {
   
 
   @override
+  
   Widget build(BuildContext context) {
+    globalContext = context;
     return Scaffold(
       appBar: kappBar,
       body: Builder(builder: (context) {
@@ -149,7 +154,7 @@ _callHttpRequest(email, context) async {
       _buildSnackbar(context);
     }else {
       //tell the user he is good to go and change the view
-      Navigator.of(context).push(
+      await Navigator.of(context).push(
         MaterialPageRoute(
           builder: (context) => List()
         )

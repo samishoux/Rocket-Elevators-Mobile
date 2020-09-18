@@ -2,20 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:Rocket_Elevator_Mobile/utilities/constants.dart';
 import 'dart:convert';
+import 'package:Rocket_Elevator_Mobile/app.dart';
 
 GlobalKey _myKey;
 List<String> list = new List();
 var last;
 
 class ListElevator extends StatefulWidget {
+  
   @override
-  var result = _getListInactiveElevators();
   State<StatefulWidget> createState() {
     return NewState();
   }
 }
 
 class NewState extends State<ListElevator>  {
+  @override
+  void initState() {
+    super.initState();
+    _getListInactiveElevators();
+  }
   var res = ListMyWidgets();
   var _statusSelected = "Active";
   var _currentItemSelected = "Select";
@@ -25,6 +31,7 @@ class NewState extends State<ListElevator>  {
 
   bool _isVisible = false;
   Widget build(BuildContext context) {
+    globalContext = context;
     return Scaffold(
       appBar: kappBar,
       body: Builder(builder: (context) {
@@ -232,16 +239,16 @@ class NewState extends State<ListElevator>  {
 }
 
 _buildSnackbar(context) {
-    SnackBar mySackbar = SnackBar(
-      content: Text(
-        "The status was updated",
-        style: kLabelStyle,
-        textAlign: TextAlign.center,
-      ),
-      backgroundColor: Colors.green,
-      
-      );
-    Scaffold.of(context).showSnackBar(mySackbar);
+  SnackBar mySackbar = SnackBar(
+    content: Text(
+      "The status was updated",
+      style: kLabelStyle,
+      textAlign: TextAlign.center,
+    ),
+    backgroundColor: Colors.green,
+    
+    );
+  Scaffold.of(context).showSnackBar(mySackbar);
 }
 
 _callSomething(e, status)async{
@@ -261,6 +268,7 @@ _getListInactiveElevators() async {
     var id = elev['id'];
     list.add("Elevator-Number:-$id");
   }
+  return 42;
 }
 
 List<String> ListMyWidgets() {
