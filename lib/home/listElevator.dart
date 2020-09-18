@@ -16,7 +16,12 @@ class ListElevator extends StatefulWidget {
 }
 
 class NewState extends State<ListElevator>  {
-  @override
+  var yes;
+  void initState() {	
+    super.initState();	
+    yes = _getListInactiveElevators();	
+  }	
+  var res = ListMyWidgets();
   //init variable to display correctly
   var _statusSelected = "Active";
   var _currentItemSelected = "Select";
@@ -26,7 +31,7 @@ class NewState extends State<ListElevator>  {
 
   bool _isVisible = false;
   Widget build(BuildContext context) => FutureBuilder(
-    future: _getListInactiveElevators(),
+    future: yes,
     builder: (context, snapshot) {
       if (snapshot.hasData) {
         // Build the widget with data.
