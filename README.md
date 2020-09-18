@@ -1,6 +1,7 @@
 # Rocket_Elevator_Mobile
 
-  
+## Starting the application
+To start the application you can do ``flutter run`` in vscode or you can click the play button in android studio if you have a phone emulator opened.
 ### How to connect
 Put in one of these emails :
 1. bobgratton@bg
@@ -15,5 +16,5 @@ Put in one of these emails :
 ### List of elevator
 When you go on this page there is a list of elevator that are inactive, you can select one and change the status of this elevator. If you change the status of the elevator to ``Active``, the elevator will be removed from the list.
 
-## Get Elevator
+### Get Elevator
 When you go on this page, you can get the status of an elevator when you input the id of that said elevator, you can then change the status of this elevator.
