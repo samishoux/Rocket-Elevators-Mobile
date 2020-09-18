@@ -1,16 +1,19 @@
 # Rocket_Elevator_Mobile
 
-A new Flutter project.
+  
+### How to connect
+Put in one of these emails :
+1. bobgratton@bg
+2. nicolas.genest@codeboxx.biz
+3. nadya.fortier@codeboxx.biz
+4. martin.chantal@codeboxx.biz
+5. mathieu.houde@codeboxx.biz
+6. david.boutin@codeboxx.biz
+7. mathieu.lortie@codeboxx.biz
+8. thomas.carrier@codeboxx.biz
 
-## Getting Started
+### List of elevator
+When you go on this page there is a list of elevator that are inactive, you can select one and change the status of this elevator. If you change the status of the elevator to ``Active``, the elevator will be removed from the list.
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Get Elevator
+When you go on this page, you can get the status of an elevator when you input the id of that said elevator, you can then change the status of this elevator.

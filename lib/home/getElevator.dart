@@ -66,7 +66,7 @@ class StateGetElevator extends State<GetElevator>  {
                           height: 60.0,
                           child: TextField(
                             controller: anotherController,
-                            keyboardType: TextInputType.emailAddress,
+                            keyboardType: TextInputType.number,
                             style: TextStyle(
                               color: Colors.white,
                             ),
